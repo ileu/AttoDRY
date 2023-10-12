@@ -3,11 +3,11 @@
 # has to be referred to in the dll_directory variable. Not all functions
 # are implemented in the given code, since control is still maintained with
 # the attoDRY labview interface. All additional function names are found in the dll_list.txt
-# file. 
+# file.
 # You need to install the 2016 labview runtime engine. Additionally, the
-# script will only work with a 32 bit python version. 
+# script will only work with a 32 bit python version.
 #
-# AttoDRY2100lib.py and PyAttoDRY2100.py are written by 
+# AttoDRY2100lib.py and PyAttoDRY2100.py are written by
 # Christoph Murer
 # Magnetism and interface Physics, ETH Zurich
 # christoph.murer@mat.ethz.ch or chmurer@gmail.com
@@ -15,14 +15,16 @@
 # inspired by the ANC350 scrips written by Rob Heath and Brian Schaefer (https://github.com/Laukei/pyanc350)
 
 import AttoDRYlib as adryLib
+
 # other import items:
 import ctypes
 from enum import IntEnum
 
 
 # look at the header file to find the structure of a given function. This is just the implementation
-# of temperature and field control without any further functionalities. All function descriptions are 
+# of temperature and field control without any further functionalities. All function descriptions are
 # copied from the header files.
+
 
 class Devices(IntEnum):
     """
@@ -32,13 +34,13 @@ class Devices(IntEnum):
     1: attoDRY2100
     2: attoDRY800
     """
+
     ATTODRY1100 = 0
     ATTODRY2100 = 1
     ATTODRY800 = 2
 
 
 class AttoDRY:
-
     def __init__(self, setup_version: Devices, com_port):
         self.setup_version = setup_version
         self.com_port = com_port
@@ -62,7 +64,7 @@ class AttoDRY:
         """
         Connects to the attoDRY using the specified COM Port
         """
-        COMPort = self.com_port.encode('utf-8')
+        COMPort = self.com_port.encode("utf-8")
         adryLib.Connect(ctypes.c_char_p(COMPort).value)
 
     def Disconnect(self):
@@ -102,11 +104,11 @@ class AttoDRY:
         """
         Gets the current action message. If an action is being performed, it will
         be shown here. It is similar to the pop-ups on the display.
-         """
+        """
         ActionMessage = ctypes.create_string_buffer(length)
         c_length = ctypes.c_int(length)
         adryLib.getAttodryErrorMessage(ctypes.byref(ActionMessage), c_length)
-        return ActionMessage.value.decode('utf-8')
+        return ActionMessage.value.decode("utf-8")
 
     def getAttodryErrorMessage(self, length=500):
         """
@@ -116,7 +118,7 @@ class AttoDRY:
         ErrorStatus = ctypes.create_string_buffer(length)
         c_length = ctypes.c_int(length)
         adryLib.getAttodryErrorMessage(ctypes.byref(ErrorStatus), c_length)
-        return ErrorStatus.value.decode('utf-8')
+        return ErrorStatus.value.decode("utf-8")
 
     def getAttodryErrorStatus(self):
         """
@@ -180,14 +182,14 @@ class AttoDRY:
         Toggles persistant mode for magnet control. If it is enabled, the switch
         heater will be turned off once the desired field is reached. If it is not,
         the switch heater will be left on.
-         """
+        """
         adryLib.toggleMagneticFieldControl()
 
     def togglePersistentMode(self):
         """
         Starts and stops the pump. If the pump is running, it will stop it. If the
         pump is not running, it will be started.
-         """
+        """
         adryLib.togglePersistentMode()
 
     def toggleSampleTemperatureControl(self):
@@ -195,7 +197,7 @@ class AttoDRY:
         This command only toggles the sample temperature controller. It does not
         pump the volumes etc. Use  <B>toggleFullTemperatureControl.vi</B> for
         behaviour like the temperature control icon on the touch screen.
-         """
+        """
         adryLib.toggleSampleTemperatureControl()
 
     def toggleFullTemperatureControl(self):
@@ -203,13 +205,13 @@ class AttoDRY:
         This command only toggles the sample temperature controller. It does not
         pump the volumes etc. Use  <B>toggleFullTemperatureControl.vi</B> for
         behaviour like the temperature control icon on the touch screen.
-         """
+        """
         adryLib.toggleFullTemperatureControl()
 
     def goToBaseTemperature(self):
         """
         Initiates the "Base Temperature" command, as on the touch screen
-         """
+        """
         adryLib.goToBaseTemperature()
 
     def get4KStageTemperature(self):
@@ -278,8 +280,10 @@ class AttoDRY:
         Starts the download of the <B>Sample Temperature Sensor Calibration
         Curve</B>. The curve will be saved to <B>Save Path</B>
         """
-        Savepath = savepath.encode('utf-8')
-        adryLib.downloadSampleTemperatureSensorCalibrationCurve(ctypes.c_char_p(Savepath).value)
+        Savepath = savepath.encode("utf-8")
+        adryLib.downloadSampleTemperatureSensorCalibrationCurve(
+            ctypes.c_char_p(Savepath).value
+        )
 
     def downloadTemperatureSensorCalibrationCurve(self, user_curve_number, savepath):
         """
@@ -287,9 +291,10 @@ class AttoDRY:
         Curve Number</B> on the temperature monitor. The curve will be saved to
         <B>Path</B>
         """
-        Savepath = savepath.encode('utf-8')
-        adryLib.downloadTemperatureSensorCalibrationCurve(ctypes.c_int(user_curve_number),
-                                                          ctypes.c_char_p(Savepath).value)
+        Savepath = savepath.encode("utf-8")
+        adryLib.downloadTemperatureSensorCalibrationCurve(
+            ctypes.c_int(user_curve_number), ctypes.c_char_p(Savepath).value
+        )
 
     def getDerivativeGain(self):
         """
@@ -301,7 +306,7 @@ class AttoDRY:
         <B>VTI Heater</B> gain is returned
         - If the VTI heater is on and no sample temperature sensor is connected,
         the <B>Exchange Heater</B> gain is returned
-         """
+        """
         DerivativeGain = ctypes.c_float()
         adryLib.getDerivativeGain(ctypes.byref(DerivativeGain))
         return DerivativeGain.value
@@ -390,7 +395,7 @@ class AttoDRY:
 
         Power = Voltage^2/((HeaterResistance + WireResistance)^2) *
         HeaterResistance
-         """
+        """
         SampleHeaterWireResistance = ctypes.c_float()
         adryLib.getSampleHeaterWireResistance(ctypes.byref(SampleHeaterWireResistance))
         return SampleHeaterWireResistance.value
@@ -635,9 +640,12 @@ class AttoDRY:
         #define Enum__1Minute 3
         #define Enum__5Minutes 4
         """
-        Savepath = savepath.encode('utf-8')
-        adryLib.startLogging(ctypes.c_char_p(Savepath).value, ctypes.c_int(time_selection).value,
-                             ctypes.c_int(append).value)
+        Savepath = savepath.encode("utf-8")
+        adryLib.startLogging(
+            ctypes.c_char_p(Savepath).value,
+            ctypes.c_int(time_selection).value,
+            ctypes.c_int(append).value,
+        )
 
     def startSampleExchange(self):
         """
@@ -676,7 +684,7 @@ class AttoDRY:
         Starts the upload of a <B>.crv calibration curve file</B> to the <B>sample
         temperature sensor</B>
         """
-        Loadpath = loadpath.encode('utf-8')
+        Loadpath = loadpath.encode("utf-8")
         adryLib.uploadSampleTemperatureCalibrationCurve(ctypes.c_char_p(Loadpath).value)
 
     def uploadTemperatureCalibrationCurve(self, loadpath, user_curve_number):
@@ -685,8 +693,10 @@ class AttoDRY:
         <B>User Curve Number</B> on the temperature monitor. Use a curve number of
         1 to 8, inclusive
         """
-        Loadpath = loadpath.encode('utf-8')
-        adryLib.uploadTemperatureCalibrationCurve(ctypes.c_int(user_curve_number).value, ctypes.c_char_p(Loadpath).value)
+        Loadpath = loadpath.encode("utf-8")
+        adryLib.uploadTemperatureCalibrationCurve(
+            ctypes.c_int(user_curve_number).value, ctypes.c_char_p(Loadpath).value
+        )
 
     def setVTIHeaterPower(self, vti_heater_power_w):
         """
@@ -718,7 +728,9 @@ class AttoDRY:
         """
         AttoDRY_Interface_setReservoirTsetColdSample
         """
-        adryLib.setReservoirTsetColdSample(ctypes.c_float(set_reservoir_tset_cold_sample_k))
+        adryLib.setReservoirTsetColdSample(
+            ctypes.c_float(set_reservoir_tset_cold_sample_k)
+        )
 
     def setReservoirTsetWarmSample(self, ReservoirTsetWarmSampleW):
         """
@@ -929,14 +941,14 @@ class AttoDRY:
         This command only toggles the exchange/vti temperature controller. If a
         sample temperature sensor is connected, this will be controlled, otherwise
         the temperature of the exchange tube will be used
-         """
+        """
         adryLib.toggleExchangeHeaterControl()
 
     def toggleHeliumValve(self):
         """
         ATTODRY1100 ONLY. Toggles the helium valve. If it is closed, it will open
         and if it is open, it will close.
-         """
+        """
         adryLib.toggleHeliumValve()
 
     def toggleInnerVolumeValve(self):
@@ -944,21 +956,21 @@ class AttoDRY:
         ATTODRY1100 ONLY.
         Toggles the inner volume valve. If it is closed, it will open and if it is
         open, it will close.
-         """
+        """
         adryLib.toggleInnerVolumeValve()
 
     def toggleOuterVolumeValve(self):
         """
         ATTODRY1100 ONLY. Toggles the outer volume valve. If it is closed, it will
         open and if it is open, it will close.
-         """
+        """
         adryLib.toggleOuterVolumeValve()
 
     def togglePumpValve(self):
         """
         ATTODRY1100 ONLY. Toggles the pump valve. If it is closed, it will open and
         if it is open, it will close.
-         """
+        """
         adryLib.togglePumpValve()
 
     def getBreakVac800Valve(self):
@@ -974,7 +986,7 @@ class AttoDRY:
         """
         ATTODRY800 ONLY. Toggles the SampleSpace valve. If it is closed, it will
         open and if it is open, it will close.
-         """
+        """
 
         adryLib.toggleSampleSpace800Valve()
 
@@ -998,14 +1010,14 @@ class AttoDRY:
         """
         ATTODRY800 ONLY. Toggles the Pump valve. If it is closed, it will open and
         if it is open, it will close.
-         """
+        """
         adryLib.togglePump800Valve()
 
     def toggleBreakVac800Valve(self):
         """
         ATTODRY800 ONLY. Toggles the BreakVacuum valve. If it is closed, it will
         open and if it is open, it will close.
-         """
+        """
         adryLib.toggleBreakVac800Valve()
 
     def getPressure800(self):
