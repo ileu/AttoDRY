@@ -970,56 +970,56 @@ class AttoDRY:
         return valveStatus.value
 
     # TODO: Look at code below for the attoDry 800
-    # def toggleSampleSpace800Valve(self):
-    #     """
-    #     ATTODRY800 ONLY. Toggles the SampleSpace valve. If it is closed, it will
-    #     open and if it is open, it will close.
-    #      """
-    #
-    #     adryLib.toggleSampleSpace800Valve()
-    #
-    # def getPump800Valve(self):
-    #     """
-    #     ATTODRY800 ONLY. Gets the current status of the Pump valve.
-    #     """
-    #     valveStatus = ctypes.c_int()
-    #     adryLib.getPump800Valve(ctypes.byref(valveStatus))
-    #     return valveStatus.value
-    #
-    # def getSampleSpace800Valve(self):
-    #     """
-    #     ATTODRY800 ONLY. Gets the current status of the SampleSpace valve.
-    #     """
-    #     valveStatus = ctypes.c_int()
-    #     adryLib.getSampleSpace800Valve(ctypes.byref(valveStatus))
-    #     return valveStatus.value
-    #
-    # def togglePump800Valve(self):
-    #     """
-    #     ATTODRY800 ONLY. Toggles the Pump valve. If it is closed, it will open and
-    #     if it is open, it will close.
-    #      """
-    #     adryLib.togglePump800Valve()
-    #
-    # def toggleBreakVac800Valve(self):
-    #     """
-    #     ATTODRY800 ONLY. Toggles the BreakVacuum valve. If it is closed, it will
-    #     open and if it is open, it will close.
-    #      """
-    #     adryLib.toggleBreakVac800Valve()
-    #
-    # def getPressure800(self):
-    #     """
-    #     ATTODRY800 ONLY. Gets the pressure at the Cryostat Inlet.
-    #     """
-    #     CryostatInPressureMbar = ctypes.c_float()
-    #     adryLib.getPressure800(ctypes.byref(CryostatInPressureMbar))
-    #     return CryostatInPressureMbar.value
-    #
-    # def GetTurbopumpFrequ800(self):
-    #     """
-    #     ATTODRY800 ONLY. Gets the current frequency of the turbopump.
-    #     """
-    #     TurbopumpFrequencyHz = ctypes.c_float()
-    #     adryLib.GetTurbopumpFrequ800(ctypes.byref(TurbopumpFrequencyHz))
-    #     return TurbopumpFrequencyHz.value
+    def toggleSampleSpace800Valve(self):
+        """
+        ATTODRY800 ONLY. Toggles the SampleSpace valve. If it is closed, it will
+        open and if it is open, it will close.
+         """
+
+        adryLib.toggleSampleSpace800Valve()
+
+    def getPump800Valve(self):
+        """
+        ATTODRY800 ONLY. Gets the current status of the Pump valve.
+        """
+        valveStatus = ctypes.c_int()
+        adryLib.getPump800Valve(ctypes.byref(valveStatus))
+        return valveStatus.value
+
+    def getSampleSpace800Valve(self):
+        """
+        ATTODRY800 ONLY. Gets the current status of the SampleSpace valve.
+        """
+        valveStatus = ctypes.c_int()
+        adryLib.getSampleSpace800Valve(ctypes.byref(valveStatus))
+        return valveStatus.value
+
+    def togglePump800Valve(self):
+        """
+        ATTODRY800 ONLY. Toggles the Pump valve. If it is closed, it will open and
+        if it is open, it will close.
+         """
+        adryLib.togglePump800Valve()
+
+    def toggleBreakVac800Valve(self):
+        """
+        ATTODRY800 ONLY. Toggles the BreakVacuum valve. If it is closed, it will
+        open and if it is open, it will close.
+         """
+        adryLib.toggleBreakVac800Valve()
+
+    def getPressure800(self):
+        """
+        ATTODRY800 ONLY. Gets the pressure at the Cryostat Inlet.
+        """
+        CryostatInPressureMbar = ctypes.c_float()
+        adryLib.getPressure800(ctypes.byref(CryostatInPressureMbar))
+        return CryostatInPressureMbar.value
+
+    def GetTurbopumpFrequ800(self):
+        """
+        ATTODRY800 ONLY. Gets the current frequency of the turbopump.
+        """
+        TurbopumpFrequencyHz = ctypes.c_float()
+        adryLib.GetTurbopumpFrequ800(ctypes.byref(TurbopumpFrequencyHz))
+        return TurbopumpFrequencyHz.value
