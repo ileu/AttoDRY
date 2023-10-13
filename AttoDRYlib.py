@@ -334,7 +334,7 @@ getPumpValve = getattr(attoDRYLib, "AttoDRY_Interface_getPumpValve")
 getTurbopumpFrequency = getattr(attoDRYLib, "AttoDRY_Interface_getTurbopumpFrequency")
 
 getPressure800 = getattr(attoDRYLib, "AttoDRY_Interface_getPressure800")
-getTurbopumpFrequ800 = getattr(attoDRYLib, "AttoDRY_Interface_getTurbopumpFrequ800")
+GetTurbopumpFrequ800 = getattr(attoDRYLib, "AttoDRY_Interface_GetTurbopumpFrequ800")
 
 ##### set values
 setDerivativeGain = getattr(attoDRYLib, "AttoDRY_Interface_setDerivativeGain")
@@ -467,7 +467,7 @@ getPumpValve.errcheck = checkError
 getTurbopumpFrequency.errcheck = checkError
 
 getPressure800.errcheck = checkError
-getTurbopumpFrequ800.errcheck = checkError
+GetTurbopumpFrequ800.errcheck = checkError
 
 ##### set values
 setDerivativeGain.errcheck = checkError
