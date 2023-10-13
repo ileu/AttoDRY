@@ -978,7 +978,7 @@ class AttoDRY:
         ATTODRY800 ONLY. Gets the current status of the BreakVacuum valve.
         """
         valveStatus = ctypes.c_int()
-        adryLib.getTurbopumpFrequency(ctypes.byref(valveStatus))
+        adryLib.getBreakVac800Valve(ctypes.byref(valveStatus))
         return valveStatus.value
 
     # TODO: Look at code below for the attoDry 800

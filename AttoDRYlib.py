@@ -280,6 +280,13 @@ toggleSampleTemperatureControl = getattr(
 )
 toggleStartUpShutdown = getattr(attoDRYLib, "AttoDRY_Interface_toggleStartUpShutdown")
 
+toggleSampleSpace800Valve = getattr(
+    attoDRYLib, "AttoDRY_Interface_toggleSampleSpace800Valve"
+)
+
+togglePump800Valve = getattr(attoDRYLib, "AttoDRY_Interface_togglePump800Valve")
+toggleBreakVac800Valve = getattr(attoDRYLib, "AttoDRY_Interface_toggleBreakVac800Valve")
+
 ##### get values
 getCryostatInPressure = getattr(attoDRYLib, "AttoDRY_Interface_getCryostatInPressure")
 getCryostatInValve = getattr(attoDRYLib, "AttoDRY_Interface_getCryostatInValve")
@@ -333,6 +340,9 @@ getVtiTemperature = getattr(attoDRYLib, "AttoDRY_Interface_getVtiTemperature")
 getPumpValve = getattr(attoDRYLib, "AttoDRY_Interface_getPumpValve")
 getTurbopumpFrequency = getattr(attoDRYLib, "AttoDRY_Interface_getTurbopumpFrequency")
 
+getBreakVac800Valve = getattr(attoDRYLib, "AttoDRY_Interface_getBreakVac800Valve")
+getPump800Valve = getattr(attoDRYLib, "AttoDRY_Interface_getPump800Valve")
+getSampleSpace800Valve = getattr(attoDRYLib, "AttoDRY_Interface_getSampleSpace800Valve")
 getPressure800 = getattr(attoDRYLib, "AttoDRY_Interface_getPressure800")
 GetTurbopumpFrequ800 = getattr(attoDRYLib, "AttoDRY_Interface_GetTurbopumpFrequ800")
 
