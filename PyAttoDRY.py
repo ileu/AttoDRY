@@ -14,11 +14,14 @@
 # script started on 04-Sep-2020
 # inspired by the ANC350 scrips written by Rob Heath and Brian Schaefer (https://github.com/Laukei/pyanc350)
 
-import AttoDRYlib as adryLib
-
 # other import items:
 import ctypes
+import logging
 from enum import IntEnum
+
+import AttoDRYlib as adryLib
+
+logger = logging.getLogger(__name__)
 
 
 # look at the header file to find the structure of a given function. This is just the implementation
@@ -26,7 +29,7 @@ from enum import IntEnum
 # copied from the header files.
 
 
-class Devices(IntEnum):
+class Cryostats(IntEnum):
     """
     Enum for the different devices
     Setup versions:
@@ -41,7 +44,7 @@ class Devices(IntEnum):
 
 
 class AttoDRY:
-    def __init__(self, setup_version: Devices, com_port):
+    def __init__(self, setup_version: Cryostats = None, com_port: str = None):
         self.setup_version = setup_version
         self.com_port = com_port
 
@@ -57,15 +60,24 @@ class AttoDRY:
         1: attoDRY2100
         2: attoDRY800
         """
+        if not isinstance(self.setup_version, Cryostats) or self.setup_version is None:
+            logger.warning("No or invalid setup version specified")
+            raise Exception("No or invalid setup version specified")
         c = ctypes.c_uint16(self.setup_version)
         adryLib.begin(c.value)
 
-    def Connect(self):
+    def Connect(self, com_port: str = None):
         """
         Connects to the attoDRY using the specified COM Port
         """
-        COMPort = self.com_port.encode("utf-8")
-        adryLib.Connect(ctypes.c_char_p(COMPort).value)
+        if com_port is not None:
+            self.com_port = com_port
+        elif self.com_port is None:
+            logger.warning("No COM port specified")
+            raise Exception("No COM port specified")
+
+        com_port = self.com_port.encode("utf-8")
+        adryLib.Connect(ctypes.c_char_p(com_port).value)
 
     def Disconnect(self):
         """
