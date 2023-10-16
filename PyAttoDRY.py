@@ -19,7 +19,7 @@ import ctypes
 import logging
 from enum import IntEnum
 
-import AttoDRYlib as adryLib
+import src.AttoDRY.AttoDRYlib as adryLib
 
 logger = logging.getLogger(__name__)
 

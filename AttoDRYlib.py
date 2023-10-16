@@ -17,9 +17,20 @@
 import ctypes
 import os
 
+import logging
+import warnings
+
+logger = logging.getLogger(__name__)
+
 # define the path to the AttoDRY DLL:
-dll_directory = "C:\\Program Files (x86)\\National Instruments\\LabVIEW 2020\\user.lib\\attoDRYLib\\"
-os.add_dll_directory(dll_directory)
+dll_directory = os.path.dirname(__file__)
+print(dll_directory)
+try:
+    os.add_dll_directory(dll_directory)
+except FileNotFoundError as fnfe:
+    logger.warning(f"Could not find AttoDRY DLL directory: {fnfe}")
+    warnings.warn(f"Could not find AttoDRY DLL directory: {fnfe}")
+
 
 # error code (EC) as described by
 EC_Ok = 0  # No error
