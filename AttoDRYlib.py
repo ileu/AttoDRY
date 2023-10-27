@@ -27,6 +27,7 @@ dll_directory = os.path.dirname(__file__)
 print(dll_directory)
 try:
     os.add_dll_directory(dll_directory)
+    attoDRYLib = ctypes.windll.attoDRYLib
 except FileNotFoundError as fnfe:
     logger.warning(f"Could not find AttoDRY DLL directory: {fnfe}")
     warnings.warn(f"Could not find AttoDRY DLL directory: {fnfe}")
@@ -187,7 +188,7 @@ def checkError(code, func, args):
 
 
 # load attoDRYLib...
-attoDRYLib = ctypes.windll.attoDRYLib
+
 #############################################################################################################
 ##### aliases for the DLL functions (only selected ones; we want to change field and temperature only):
 #############################################################################################################
