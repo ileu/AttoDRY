@@ -20,6 +20,7 @@ import logging
 from enum import IntEnum
 
 import src.AttoDRY.AttoDRYlib as adryLib
+from src.AttoDRY.Cryostats import Cryostats
 
 logger = logging.getLogger(__name__)
 
@@ -27,20 +28,6 @@ logger = logging.getLogger(__name__)
 # look at the header file to find the structure of a given function. This is just the implementation
 # of temperature and field control without any further functionalities. All function descriptions are
 # copied from the header files.
-
-
-class Cryostats(IntEnum):
-    """
-    Enum for the different devices
-    Setup versions:
-    0: attoDRY1100
-    1: attoDRY2100
-    2: attoDRY800
-    """
-
-    ATTODRY1100 = 0
-    ATTODRY2100 = 1
-    ATTODRY800 = 2
 
 
 class AttoDRY:
